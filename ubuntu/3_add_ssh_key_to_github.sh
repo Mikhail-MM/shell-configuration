@@ -17,7 +17,6 @@ echo "Option: $opt"
         read -p "Enter Github Developer Token: " OAUTH_TOKEN
         touch .env.github-auth
         echo "OAUTH_TOKEN='$OAUTH_TOKEN'" >> .env.github-auth
-        exit
     else
         # clear
         # echo "Handle errors here"
