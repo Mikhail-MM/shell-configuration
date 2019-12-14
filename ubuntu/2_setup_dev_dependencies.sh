@@ -61,7 +61,8 @@ sudo chmod -R 755 /var/www/$DOMAIN_NAME
 
 echo "Building sample index.html: "
 
-sudo cat >> /var/www/$DOMAIN_NAME/html/index.html << EOF
+# > rewrites entire file
+sudo cat > /var/www/$DOMAIN_NAME/html/index.html << EOF
   <html>
       <head>
           <title>Welcome to $DOMAIN_NAME!</title>
@@ -74,7 +75,13 @@ EOF
 
 echo "Adding NginX Server Group for $DOMAIN_NAME"
 
-sudo cat >> /etc/nginx/sites-available/$DOMAIN_NAME << EOF
+sudo chown -R $USER:$USER /etc/nginx/sites-available/
+
+sudo touch /etc/nginx/sites-available/$DOMAIN_NAME
+
+# escaped the $uri to maintain nginx rules
+
+sudo cat > /etc/nginx/sites-available/$DOMAIN_NAME << EOF
   server {
     listen 80;
     listen [::]:80;
@@ -85,7 +92,7 @@ sudo cat >> /etc/nginx/sites-available/$DOMAIN_NAME << EOF
     server_name $DOMAIN_NAME www.$DOMAIN_NAME;
 
     location / {
-      try_files $uri $uri/ =404;
+      try_files \$uri \$uri/ =404;
     }
   }
 EOF
@@ -95,7 +102,7 @@ EOF
 sudo ln -s /etc/nginx/sites-available/$DOMAIN_NAME /etc/nginx/sites-enabled/
 
 echo 'Please enter /etc/nginx/nginx.conf as sudo'
-echo 'Uncomment the "server_names_hash_buck" directive please'
+echo 'Uncomment the "server_names_hash_bucket_size=..." directive please'
 read -p "Press Enter when done."
 
 echo "Making sure we have no errors"
