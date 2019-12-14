@@ -26,8 +26,12 @@ echo "docker-compose installed."
 ##########################################
 ## Add user to "docker" group so that docker doesn't need to be called with "sudo" each time
 ##########################################
+
+echo "Adding user to docker group"
+
 sudo usermod -aG docker ${USER} && \
 su - ${USER} && \
+# Script terminates here for some reason
 id -nG
 
 read -p "Confirm that user has been added to docker group?"

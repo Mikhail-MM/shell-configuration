@@ -68,7 +68,7 @@ sudo cat > /var/www/$DOMAIN_NAME/html/index.html << EOF
           <title>Welcome to $DOMAIN_NAME!</title>
       </head>
       <body>
-          <h1>Success!  The $DOMAIN_NAME server block is working!</h1>
+          <h1>Success! The $DOMAIN_NAME server block is working!</h1>
       </body>
   </html>
 EOF
@@ -116,3 +116,24 @@ echo "Restarting NginX"
 sudo systemctl restart nginx
 
 echo "Check out http://$DOMAIN_NAME to see your new site in action!"
+
+###################################
+# Lets Encrypt SSL
+###################################
+
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt install python-certbot-nginx
+
+# Edit NginX Firewall Status
+
+sudo ufw allow 'Nginx Full'
+sudo ufw delete allow 'Nginx HTTP'
+sudo ufw status
+
+read -p "NginX HTTPS traffic should be enabled. Continue? "
+
+sudo certbot --nginx -d $DOMAIN_NAME -d www.$DOMAIN_NAME
+
+echo "test certbot renewal"
+
+sudo certbot renew --dry-run
