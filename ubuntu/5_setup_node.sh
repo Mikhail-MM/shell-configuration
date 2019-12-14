@@ -1,3 +1,5 @@
+sudo npm install pm2@latest -g
+
 mkdir node-init-script && \
 cd node-init-script
 
@@ -23,3 +25,5 @@ server.listen(port, hostname, () => {
 });
 EOF
 
+
+pm2 start hello-world-server.js

@@ -1,0 +1,5 @@
+ROOT_DAEMON_REPO="https://github.com/Mikhail-MM/shell-configuration"
+ROOT_DAEMON_NAME="WINDUP"
+git clone $ROOT_DAEMON_REPO $ROOT_DAEMON_NAME
+cd $ROOT_DAEMON_NAME
+chmod +x ./*/*.sh

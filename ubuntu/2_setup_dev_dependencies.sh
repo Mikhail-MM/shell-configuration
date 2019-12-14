@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NVM_VERSION='0.35.1'
+NVM_VERSION='v0.35.1'
 NODE_VERSION='--lts'
 
 ##########################################
