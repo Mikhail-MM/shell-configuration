@@ -98,7 +98,7 @@ sudo cat > /etc/nginx/sites-available/$DOMAIN_NAME << EOF
 EOF
 
 # Create a link to the default sites-enabled directory which NginX reads on startup
-
+# Fails on script re-run (TODO)
 sudo ln -s /etc/nginx/sites-available/$DOMAIN_NAME /etc/nginx/sites-enabled/
 
 echo 'Please enter /etc/nginx/nginx.conf as sudo'
